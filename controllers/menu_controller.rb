@@ -13,7 +13,8 @@ class MenuController
     puts "2 - Create an entry"
     puts "3 - Search for an entry"
     puts "4 - Import entries from a CSV"
-    puts "5 - Exit"
+    puts "5 - View a specific Entry Number"
+    puts "6 - Exit"
     print "Enter your selection: "
 
     selection = gets.to_i
@@ -36,6 +37,10 @@ class MenuController
           read_csv
           main_menu
       when 5
+          system "clear"
+          view_entry_n
+          main_menu
+      when 6
           puts "Good-bye!"
           exit(0)
       else
@@ -43,6 +48,23 @@ class MenuController
         puts "Sorry that is not a valid input"
         main_menu
     end
+  end
+
+  def view_entry_n
+      system "clear"
+      print "Which Entry Number would you like to view? "
+      n = gets.chomp.to_i
+      if n < 1 #adding this for fun
+        puts "Not a valid number"
+        view_entry_n # debating having this here, we get some weird clear effect
+        #I wonder how you delay before clearing...
+        #when I leave it out it jumps back to the main menu without clear
+        #I wonder what's better
+      else
+        n -=1 #people probably wouldn't enter 0 for 1
+        system "clear"
+        puts @address_book.entries[n].to_s
+      end
   end
 
   def view_all_entries
