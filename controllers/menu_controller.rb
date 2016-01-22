@@ -14,6 +14,7 @@ class MenuController
     puts "3 - Search for an entry"
     puts "4 - Import entries from a CSV"
     puts "5 - Exit"
+    puts "0 - Don't (This...DELETES EVERYTHING!!!!)"
     print "Enter your selection: "
 
     selection = gets.to_i
@@ -38,6 +39,10 @@ class MenuController
       when 5
           puts "Good-bye!"
           exit(0)
+      when 0
+          system "clear"
+          nuke
+          main_menu
       else
         system "clear"
         puts "Sorry that is not a valid input"
@@ -178,4 +183,22 @@ class MenuController
         search_submenu(entry)
       end
     end
+
+  def nuke
+    system "clear"
+    print "Going to delete all files...Are you sure Y/N? "
+    y_or_n = gets.chomp
+
+    if y_or_n == "Y"
+      @address_book.entries = [] #had to look this part up
+      #still struggling to learn when to use @ and what can be called
+      #from where I had a @address_book.entries.each thing going with
+      # a @address_book.entries[x] = nil approach but that wouldn't work.
+      puts "DELETED EVERYTHING!"
+    elsif y_or_n == "N"
+      puts "Okay...back to main menu."
+    else
+      puts "Not a valid input."
+    end
+  end
 end
